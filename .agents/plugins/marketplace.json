@@ -1,0 +1,20 @@
+{
+  "name": "karabo",
+  "interface": {
+    "displayName": "Karabo"
+  },
+  "plugins": [
+    {
+      "name": "karabo-device-development",
+      "source": {
+        "source": "local",
+        "path": "./plugins/karabo-device-development"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
