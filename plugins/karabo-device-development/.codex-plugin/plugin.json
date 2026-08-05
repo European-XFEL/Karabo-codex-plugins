@@ -1,7 +1,7 @@
 {
   "name": "karabo-device-development",
-  "version": "0.1.0",
-  "description": "Guidance for implementing, reviewing, debugging, and testing Karabo devices across the C++, bound-Python, and middlelayer APIs.",
+  "version": "0.1.1",
+  "description": "Guidance for implementing, reviewing, debugging, and testing Karabo devices across the C++, bound-Python, and middlelayer APIs, including behavior-driven pytest and coverage analysis.",
   "author": {
     "name": "CONTROLS Group"
   },
@@ -17,12 +17,12 @@
   "interface": {
     "displayName": "Karabo Device Development",
     "shortDescription": "Build and test Karabo devices with API-specific guidance.",
-    "longDescription": "Routes Karabo device work to detailed guidance for the classic C++, bound-Python, or asynchronous middlelayer API, including schemas, lifecycle behavior, slots, channels, proxies, and pytest practices.",
+    "longDescription": "Routes Karabo device work to detailed guidance for the classic C++, bound-Python, or asynchronous middlelayer API. Includes workflows for targeted pytest tests, regression tests accompanying implementation, failure diagnosis, fixtures, and behavior-driven coverage improvement.",
     "developerName": "CONTROLS Group",
     "category": "Productivity",
     "capabilities": [
       "Write"
     ],
-    "defaultPrompt": "Implement or review this Karabo device using the correct API guidance."
+    "defaultPrompt": "Implement, review, or test this Karabo device using the correct API and pytest guidance."
   }
 }

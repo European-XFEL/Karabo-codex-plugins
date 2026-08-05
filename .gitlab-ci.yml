@@ -8,6 +8,12 @@ validate-plugin:
     - python -m json.tool .agents/plugins/marketplace.json
     - python -m json.tool plugins/karabo-device-development/.codex-plugin/plugin.json
     - >-
+      python -m py_compile
+      plugins/karabo-device-development/skills/karabo-device-development/scripts/analyze_coverage.py
+      plugins/karabo-device-development/skills/karabo-device-development/scripts/compare_coverage.py
+    - python plugins/karabo-device-development/skills/karabo-device-development/scripts/analyze_coverage.py --help
+    - python plugins/karabo-device-development/skills/karabo-device-development/scripts/compare_coverage.py --help
+    - >-
       python -c "from pathlib import Path;
       path = Path(\"plugins/karabo-device-development/skills/karabo-device-development/SKILL.md\");
       text = path.read_text(encoding=\"utf-8\");
