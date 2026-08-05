@@ -1064,136 +1064,15 @@ Do not copy macro-specific slot state machinery into ordinary devices.
 
 ## 26. Testing Middlelayer Devices
 
-### Test Observable Behavior
+For every middlelayer test task, read [`pytest-testing.md`](pytest-testing.md)
+completely and apply it together with this API guide. Treat that reference as
+the single source of truth for test-layer selection, pytest-asyncio setup,
+Karabo testing contexts, fixture isolation, proxy synchronization, protocol
+peers, pipeline tests, cleanup, coverage, and validation.
 
-Each test should protect one clear, meaningful behavior.
-
-- Ground expected behavior in the production source, a public contract, or
-  existing tests. Do not invent an expectation merely to reach a code path.
-- Exercise the behavior through a public or otherwise stable surface.
-- Prefer observable assertions on return values, raised exceptions, device
-  state, status, property updates, pipeline data, or external IO.
-- Prefer high-value cases such as error handling, state transitions, boundary
-  conditions, and hardware, proxy, or IO failures.
-- Avoid tests of private helper call counts, delegation mechanics, or internal
-  constants when those details are not part of the behavior contract.
-- If no stable externally visible effect can be asserted without replacing
-  the implementation under test, do not add a speculative test.
-
-Mock external boundaries, not the behavior under test. Hardware, TCP peers,
-external services, time, and unavoidable infrastructure are reasonable
-boundaries. Do not patch the method under test, replace its branch logic, or
-assert private helper calls merely to prove delegation. Prefer normal method
-calls, existing fixture state, `AsyncDeviceContext`, or a small protocol peer
-over heavy patching. When an external boundary must be patched, use pytest's
-`monkeypatch` fixture or `unittest.mock` sparingly.
-
-### Pytest Style
-
-Write middlelayer tests as pytest functions with plain `assert` statements
-and `pytest.raises(...)` where appropriate.
-Keep each test focused on one behavior and split independent branches into
-separate tests.
-
-### Async Tests And Device Fixtures
-
-Use explicit timeouts and the repository's module-scoped asyncio loop. Use
-`AsyncDeviceContext` when one or more real middlelayer devices must run.
-Use `pytest_asyncio` fixtures for reusable device startup:
-
-```python
-import pytest
-import pytest_asyncio
-
-from karabo.middlelayer import State
-from karabo.middlelayer.testing import AsyncDeviceContext
-
-from my_package.my_device import MyDevice
-
-
-@pytest_asyncio.fixture(scope="module", loop_scope="module")
-async def device_context():
-    device = MyDevice({"deviceId": "TestMyDevice"})
-    async with AsyncDeviceContext(device=device) as ctx:
-        assert device.is_initialized
-        yield ctx
-
-
-@pytest.mark.timeout(30)
-@pytest.mark.asyncio(loop_scope="module")
-async def test_start_producing_changes_state(device_context):
-    device = device_context["device"]
-
-    try:
-        await device.startProducing()
-        assert device.state == State.ACTIVE
-    finally:
-        await device.stopProducing()
-```
-
-Pure synchronous helpers should use ordinary synchronous pytest tests without
-an asyncio marker.
-
-Keep expensive device startup in a module-scoped fixture only when every test
-can reliably reset changed state, running tasks, connections, and other mutable
-resources. Use a function-scoped setup fixture when per-test reset is needed.
-Prefer function-scoped device contexts when isolation cannot otherwise be
-guaranteed.
-
-Do not create an `event_loop` fixture or unmanaged event loop in an
-individual test. For async tests and fixtures, spell out
-`loop_scope="module"` even though it is the repository default.
-
-Use `AsyncServerContext` only for an integration test that genuinely needs an
-external Karabo server subprocess. Ordinary device tests need only
-`AsyncDeviceContext`. When a test instantiates a device through a server,
-including one launched with `AsyncServerContext`, provide every mandatory
-property in the device instantiation configuration. For a device speaking a
-TCP protocol, a small
-`asyncio.start_server(...)` peer on `127.0.0.1` with an ephemeral port is a
-good external-boundary fake; close accepted writers and the server in fixture
-teardown.
-
-### Waiting And Assertions
-
-Assert immediately when the operation completes synchronously or the awaited
-call guarantees the result. Use `waitUntil(...)`, `waitUntilNew(...)` in
-proxies, or test-only `sleepUntil(...)` in fixtures directly only when the
-source or an existing test shows a
-genuine asynchronous state or property transition. Do not add a wait helper
-or fixed sleep speculatively.
-
-- Bound asynchronous tests with `pytest.mark.timeout(...)`, and use a bounded
-  wait when the helper supports one.
-- Prefer stable assertions on return values, exceptions, states, and property
-  values.
-- For indirectly composed status text, assert a stable substring rather than
-  the complete message.
-- Use `.value` when asserting the numerical value of the `KaraboValue`
-- Use unique device IDs so parallel tests do not collide on the broker. create_instanceId(DEVICE_ID) will add random part to the DEVICE_ID, it can be
-imported from karabo.middlelayer.testing.
-
-Use a direct device reference for local behavior, lifecycle hooks, and
-internal state transitions. Use `connectDevice(...)` only when the test
-specifically needs proxy subscriptions, network visibility, reconnect
-behavior, or another remote-device semantic.
-
-### Select The Right Test Layer
-
-- Use descriptor or schema tests for metadata, defaults, conversion, and state
-  filtering.
-- Use direct device tests for lifecycle and local state changes.
-- Use proxy tests for network-visible configuration, slot calls,
-  acknowledgements, subscriptions, and reconnect behavior.
-- Use pipeline tests for typed or raw payloads, EOS, reconnection, queue
-  behavior, and timestamps.
-- Use a small protocol peer for hardware or TCP interaction when that boundary
-  is the behavior under test.
-
-Useful focused commands include:
-
-Both focused networked tests and the repository runner require an activated
-Karabo environment. source karabo/activate according to your local installation
+Use this guide to derive the production API contract being tested. Do not
+duplicate testing procedures or examples here; update `pytest-testing.md`
+instead.
 
 ## 27. Packaging And Running
 
@@ -1281,4 +1160,3 @@ For most new middlelayer devices, default to:
 - `DeviceClientBase` only when full topology tracking is required
 - typed input/output channels and explicit EOS propagation
 - class-based injection only for genuinely dynamic top-level schema
-- `AsyncDeviceContext` tests that verify behavior through the public API

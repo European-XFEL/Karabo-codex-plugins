@@ -1,4 +1,4 @@
 interface:
   display_name: "Karabo Device Development"
-  short_description: "Develop and test Karabo device APIs"
-  default_prompt: "Use $karabo-device-development to implement, review, or test this Karabo device task."
+  short_description: "Develop and behavior-test Karabo devices"
+  default_prompt: "Use $karabo-device-development to implement, review, debug, or behavior-test this Karabo device task."
