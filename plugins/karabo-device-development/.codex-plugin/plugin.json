@@ -1,13 +1,15 @@
 {
   "name": "karabo-device-development",
-  "version": "0.1.1",
-  "description": "Guidance for implementing, reviewing, debugging, and testing Karabo devices across the C++, bound-Python, and middlelayer APIs, including behavior-driven pytest and coverage analysis.",
+  "version": "0.1.2",
+  "description": "Guidance for implementing, reviewing, debugging, and testing Karabo devices and synchronous macros across the C++, bound-Python, and middlelayer APIs, including behavior-driven pytest and coverage analysis.",
   "author": {
     "name": "CONTROLS Group"
   },
   "keywords": [
     "karabo",
     "devices",
+    "macros",
+    "ikarabo",
     "middlelayer",
     "bound-python",
     "cpp",
@@ -15,14 +17,14 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Karabo Device Development",
-    "shortDescription": "Build and test Karabo devices with API-specific guidance.",
-    "longDescription": "Routes Karabo device work to detailed guidance for the classic C++, bound-Python, or asynchronous middlelayer API. Includes workflows for targeted pytest tests, regression tests accompanying implementation, failure diagnosis, fixtures, and behavior-driven coverage improvement.",
+    "displayName": "Karabo Device and Macro Development",
+    "shortDescription": "Build and test Karabo devices and synchronous macros.",
+    "longDescription": "Routes Karabo device and macro work to detailed guidance for classic C++, bound-Python, asynchronous middlelayer devices, and synchronous macros. Includes workflows for targeted pytest tests, regression tests accompanying implementation, failure diagnosis, fixtures, and behavior-driven coverage improvement.",
     "developerName": "CONTROLS Group",
     "category": "Productivity",
     "capabilities": [
       "Write"
     ],
-    "defaultPrompt": "Implement, review, or test this Karabo device using the correct API and pytest guidance."
+    "defaultPrompt": "Implement, review, or test this Karabo device or synchronous macro using the correct API and pytest guidance."
   }
 }
