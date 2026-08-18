@@ -33,7 +33,7 @@ For a private repository on the same GitLab instance, allow the consuming CI job
 
 ```yaml
 variables:
-  KARABO_CODEX_PLUGINS_REF: "v0.1.0"
+  KARABO_CODEX_PLUGINS_REF: "0.1.2"
 
 before_script:
   - >

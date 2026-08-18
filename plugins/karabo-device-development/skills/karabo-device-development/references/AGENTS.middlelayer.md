@@ -617,6 +617,8 @@ Property reads return `KaraboValue` objects rather than plain Python values.
 - `isSet(value)` distinguishes a real value from `NoneValue`
 - enum-backed values compare with `==`, not identity-based assumptions
 
+Assignments without an existing timestamp receive the current host-clock timestamp. Arithmetic normally propagates the newest input timestamp. Be careful with in-place operators such as `+=`: they can preserve the old `KaraboValue` timestamp when the intent was to publish a newly computed measurement. Use the raw value (`property.value`) or assign a newly computed value when a fresh timestamp is required. These timestamps are not XFEL train timestamps.
+
 Assignment goes through descriptor validation:
 
 ```python
@@ -1040,26 +1042,17 @@ normal operational failures. Prefer the current `*InitConfiguration` and
 
 ## 25. Macros
 
-`Macro` is a specialized middlelayer `Device` and uses the same descriptors,
-proxies, async helpers, and lifecycle concepts.
+For every Karabo macro task, read both `AGENTS.macro.md` and this guide
+completely.
 
-- normal `@Slot(...)` macro actions automatically maintain passive/active
-  state, `currentSlot`, cancellation, and exception hooks
-- customize macro-wide states with `abstractPassiveState` and
-  `abstractActiveState`
-- use `@MacroSlot(...)` for a long action that should start in the background
-  and return immediately
-- declare static remote dependencies with `RemoteDevice(...)` when its managed
-  startup and monitoring semantics are required
-- use `@Monitor()` to recompute a read-only property from declared remotes;
-  keep `@Monitor()` outside the property descriptor decorator
-- use `TopologyMacro` when a macro needs full topology discovery
+This guide owns the common descriptor, value, proxy, remote-operation, lock,
+wait, topology, pipeline, and history contracts. The macro guide owns macro
+policy, `MacroSlot`, passive/active state behavior, cancellation, and the
+synchronous execution overlay.
 
-A positive `RemoteDevice` timeout logs a missing dependency and lets startup
-continue; `timeout <= 0` removes the timeout and may leave initialization
-waiting indefinitely. Any update from any declared remote recomputes all
-`@Monitor` properties. Monitor exceptions are logged and watching continues.
-
+Examples in this file target asynchronous middlelayer devices. Macro
+implementation code must use the synchronized middlelayer interface and must
+not contain `async def`, `await`, `async with`, or asyncio task management.
 Do not copy macro-specific slot state machinery into ordinary devices.
 
 ## 26. Testing Middlelayer Devices
