@@ -1,0 +1,4 @@
+interface:
+  display_name: "AGENTS.md Authoring"
+  short_description: "Create evidence-backed Karabo repository guidance"
+  default_prompt: "Use $agents-md-authoring to inspect this Karabo repository and create or update its AGENTS.md files."
