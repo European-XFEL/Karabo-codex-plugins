@@ -81,6 +81,13 @@ Prefer a small number of actionable instructions over exhaustive coverage.
 
 ## Compose The Root File
 
+Write in simple, plain English so each instruction is clear on the first
+read. Use short sentences with concrete actions, and name the relevant
+file or component when needed. Avoid jargon, unexplained shorthand, and
+packing several rules into one sentence. Keep the file concise by removing
+repetition and low-value detail, rather than compressing explanations until
+they become unclear. Include enough context to preserve the intended meaning.
+
 Start with one short paragraph explaining the project's purpose. Immediately
 after that paragraph, copy `assets/root-working-agreements.md` verbatim. This
 fragment is mandatory internal guidance and is not removed as generic during
@@ -127,5 +134,7 @@ differs from the root.
 2. Re-read every non-mandatory instruction and remove anything unsupported,
    generic, aspirational, temporary, duplicated, or overly detailed.
 3. Check every mandatory repository-specific statement against the evidence.
-4. Review the diff and do not change unrelated files.
-5. Return only the changed paths and a brief scope description.
+4. Rewrite any sentence that requires rereading to understand what to do,
+   when the rule applies, or which component it concerns.
+5. Review the diff and do not change unrelated files.
+6. Return only the changed paths and a brief scope description.
