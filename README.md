@@ -8,6 +8,10 @@ This repository is the shared source for Karabo plugins used by Codex CLI, devel
   and testing guidance for C++, bound-Python, and middlelayer Karabo devices,
   including targeted pytest work, regression tests, failure diagnosis, and
   behavior-driven coverage improvement.
+- `xfel-workflows`: retrieve and analyze XFEL Redmine and GitLab issues, update
+  named GitLab issues when requested, search related
+  Karabo devices in Qdrant using the local mxbai embedding model, inspect
+  GitLab projects, and create merge requests on the configured GitLab instance.
 
 ## Install from GitLab
 
@@ -26,6 +30,21 @@ codex plugin add karabo-device-development@karabo
 ```
 
 Start a new Codex session after installation so the bundled skill is loaded.
+
+For XFEL service workflows, install `xfel-workflows@karabo` in the same way.
+It provides `$xfel-redmine-ticket`, `$xfel-gitlab-issue`, `$xfel-karabo-search`,
+and `$xfel-gitlab-mr`; issue analysis and device search can be combined in one
+request. The GitLab issue skill accepts direct issue links and selected board
+cards, including the controls integration requests board, and supports requested
+field edits or analysis comments with appropriate personal token permissions.
+
+Store credentials outside repositories in `~/.config/xfel/credentials.json`
+(mode `0600`, parent directory `0700`), preferably provisioned from your password
+manager. Use personal Redmine/GitLab tokens and the centrally supplied Qdrant
+token. See the [credential setup and example](plugins/xfel-workflows/references/credentials.md)
+for key names, optional embedding authentication, and CI secret-file setup.
+Service URLs and the integration-request project default also belong in that
+private file; the plugin has no built-in deployment URLs.
 
 ## Use in GitLab CI
 
@@ -61,7 +80,7 @@ repository gains GitHub Actions workflows, the token also needs workflow write a
 ```text
 .agents/plugins/marketplace.json
 plugins/
-└── karabo-device-development/
+├── karabo-device-development/
     ├── .codex-plugin/plugin.json
     └── skills/karabo-device-development/
         ├── SKILL.md
@@ -70,12 +89,22 @@ plugins/
         └── scripts/
             ├── analyze_coverage.py
             └── compare_coverage.py
+└── xfel-workflows/
+    ├── .codex-plugin/plugin.json
+    ├── references/                 # Credentials and search API recipes
+    ├── scripts/xfel_api.py
+    ├── tests/
+    └── skills/
+        ├── xfel-redmine-ticket/
+        ├── xfel-gitlab-issue/
+        ├── xfel-karabo-search/
+        └── xfel-gitlab-mr/
 ```
 
 ## Releasing updates
 
 1. Update the bundled skill and its references.
-2. Increment the semantic version in `plugins/karabo-device-development/.codex-plugin/plugin.json`.
+2. Increment the semantic version in the changed plugin's `.codex-plugin/plugin.json`.
 3. Run the repository validation pipeline.
 4. Create a matching Git tag, for example `v0.2.0`.
 5. Update consuming CI projects to the new tag after review.

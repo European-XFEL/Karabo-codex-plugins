@@ -8,6 +8,16 @@ validate-plugin:
   script:
     - python -m json.tool .agents/plugins/marketplace.json
     - python -m json.tool plugins/karabo-device-development/.codex-plugin/plugin.json
+    - python -m json.tool plugins/xfel-workflows/.codex-plugin/plugin.json
+    - python plugins/xfel-workflows/scripts/xfel_api.py --help
+    - python plugins/xfel-workflows/skills/xfel-gitlab-issue/scripts/resolve_issue.py --help
+    - python -m unittest discover -s plugins/xfel-workflows/tests -v
+    - >-
+      python -c "from pathlib import Path;
+      paths = list(Path('plugins/xfel-workflows/skills').glob('*/SKILL.md'));
+      assert len(paths) == 4;
+      assert all(p.read_text().startswith('---\n') and '\n---\n' in p.read_text()[4:]
+      and '[TODO:' not in p.read_text() for p in paths)"
     - >-
       python -m py_compile
       plugins/karabo-device-development/skills/karabo-device-development/scripts/analyze_coverage.py

@@ -1,0 +1,4 @@
+interface:
+  display_name: "XFEL GitLab Issue"
+  short_description: "Analyze XFEL GitLab issues and requested updates"
+  default_prompt: "Use $xfel-gitlab-issue to analyze this XFEL GitLab issue, identify missing requirements, and apply an issue update only if requested."

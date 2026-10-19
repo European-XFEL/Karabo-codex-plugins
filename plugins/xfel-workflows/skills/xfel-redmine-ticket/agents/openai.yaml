@@ -1,0 +1,4 @@
+interface:
+  display_name: "XFEL Redmine Ticket"
+  short_description: "Analyze XFEL tickets and missing requirements"
+  default_prompt: "Use $xfel-redmine-ticket to retrieve this XFEL Redmine ticket and summarize required work and missing requirements."

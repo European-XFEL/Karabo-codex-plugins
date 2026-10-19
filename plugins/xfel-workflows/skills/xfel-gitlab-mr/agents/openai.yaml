@@ -1,0 +1,4 @@
+interface:
+  display_name: "XFEL GitLab Merge Request"
+  short_description: "Prepare and create XFEL GitLab merge requests"
+  default_prompt: "Use $xfel-gitlab-mr to inspect this branch and create the requested merge request on the configured GitLab instance."

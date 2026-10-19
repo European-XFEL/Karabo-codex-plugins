@@ -1,0 +1,4 @@
+interface:
+  display_name: "XFEL Karabo Search"
+  short_description: "Find related Karabo devices and inspect source"
+  default_prompt: "Use $xfel-karabo-search to find related Karabo devices in XFEL Qdrant and inspect their GitLab source."

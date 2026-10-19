@@ -1,0 +1,19 @@
+{
+  "name": "xfel-workflows",
+  "version": "0.2.1",
+  "description": "Analyze XFEL Redmine and GitLab issues, update named GitLab issues, discover related Karabo devices in Qdrant, inspect source, and create merge requests with personal credentials.",
+  "author": {
+    "name": "CONTROLS Group"
+  },
+  "keywords": ["xfel", "redmine", "qdrant", "karabo", "gitlab"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "XFEL Development Workflows",
+    "shortDescription": "Analyze tickets, find Karabo code, and open GitLab MRs.",
+    "longDescription": "Four composable workflows for XFEL Redmine and GitLab issue analysis, requested GitLab issue updates, related Karabo device discovery using local embeddings and Qdrant, source inspection, and merge request creation. Credentials are loaded from a private local secret file.",
+    "developerName": "CONTROLS Group",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": "Analyze this XFEL ticket, find related Karabo devices, or create the requested GitLab merge request."
+  }
+}
