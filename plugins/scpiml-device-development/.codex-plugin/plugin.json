@@ -1,0 +1,28 @@
+{
+  "name": "scpiml-device-development",
+  "version": "0.1.0",
+  "description": "Create, extend, debug, and test Karabo middlelayer instrument devices built with scpiml. Requires the karabo-device-development plugin.",
+  "author": {
+    "name": "CONTROLS Group"
+  },
+  "keywords": [
+    "karabo",
+    "scpiml",
+    "scpi",
+    "middlelayer",
+    "instruments",
+    "pytest"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "scpiML Device Development",
+    "shortDescription": "Build and test instrument devices with scpiml.",
+    "longDescription": "Guidance for mapping instrument protocols to scpiml descriptors, channels, reply handlers, connection behavior, and simulated hardware tests. Covers creating, extending, and debugging downstream devices. Requires karabo-device-development for shared Karabo middlelayer and pytest guidance.",
+    "developerName": "CONTROLS Group",
+    "category": "Productivity",
+    "capabilities": [
+      "Write"
+    ],
+    "defaultPrompt": "Create, extend, debug, or test this scpiml instrument device using its protocol documentation and the Karabo development guidance."
+  }
+}

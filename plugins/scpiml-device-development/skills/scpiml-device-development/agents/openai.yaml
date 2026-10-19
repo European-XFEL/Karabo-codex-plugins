@@ -1,0 +1,4 @@
+interface:
+  display_name: "scpiML Device Development"
+  short_description: "Build and test instrument devices with scpiml"
+  default_prompt: "Use $scpiml-device-development with $karabo-device-development to create, extend, debug, or test this scpiml instrument device."

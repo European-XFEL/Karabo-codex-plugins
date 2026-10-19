@@ -13,6 +13,11 @@ This repository is the shared source for Karabo plugins used by Codex CLI, devel
   concise `AGENTS.md` instructions for Karabo projects. Requires the
   `karabo-device-development` plugin.
 
+- `scpiml-device-development`: create, extend, debug, and test Karabo
+  middlelayer instrument devices using scpiml, including protocol hooks,
+  nested channels, connection behavior, and simulated hardware tests.
+  Requires the `karabo-device-development` plugin.
+
 ## Install from GitLab
 
 Register this marketplace once:
@@ -24,16 +29,18 @@ codex plugin marketplace add \
 ```
 
 Use `main` for the latest unreleased content, or replace it with a repository
-release tag to stay on a stable marketplace snapshot. Install either or both
-plugins:
+release tag to stay on a stable marketplace snapshot. Install the plugins you
+need:
 
 ```bash
 codex plugin add karabo-device-development@karabo
 codex plugin add agents-md-authoring@karabo
+codex plugin add scpiml-device-development@karabo
 ```
 
-The `agents-md-authoring` workflow requires `karabo-device-development`, so
-install both when using it.
+Both `agents-md-authoring` and `scpiml-device-development` require
+`karabo-device-development`. Install the companion plugin alongside either
+one; these prerequisites are documented, not automatically installed.
 
 Start a new Codex session after installation so the bundled skill is loaded.
 
@@ -71,6 +78,12 @@ plugins/
 │       ├── SKILL.md
 │       ├── agents/openai.yaml
 │       └── assets/
+├── scpiml-device-development/
+│   ├── .codex-plugin/plugin.json
+│   └── skills/scpiml-device-development/
+│       ├── SKILL.md
+│       ├── agents/openai.yaml
+│       └── references/
 └── karabo-device-development/
     ├── .codex-plugin/plugin.json
     └── skills/karabo-device-development/

@@ -7,16 +7,20 @@ validate-plugin:
   script:
     - python -m json.tool .agents/plugins/marketplace.json
     - python -m json.tool plugins/karabo-device-development/.codex-plugin/plugin.json
+    - python -m json.tool plugins/scpiml-device-development/.codex-plugin/plugin.json
     - >-
       python -m py_compile
       plugins/karabo-device-development/skills/karabo-device-development/scripts/analyze_coverage.py
       plugins/karabo-device-development/skills/karabo-device-development/scripts/compare_coverage.py
     - python plugins/karabo-device-development/skills/karabo-device-development/scripts/analyze_coverage.py --help
     - python plugins/karabo-device-development/skills/karabo-device-development/scripts/compare_coverage.py --help
-    - >-
-      python -c "from pathlib import Path;
-      path = Path(\"plugins/karabo-device-development/skills/karabo-device-development/SKILL.md\");
-      text = path.read_text(encoding=\"utf-8\");
-      assert text.startswith(\"---\n\"), \"SKILL.md must start with YAML frontmatter\";
-      assert \"\n---\n\" in text[4:], \"SKILL.md frontmatter must be closed\";
-      assert \"[TODO:\" not in text, \"SKILL.md contains a TODO placeholder\""
+    - |
+      python - <<'PY'
+      from pathlib import Path
+      for name in ("karabo-device-development", "scpiml-device-development"):
+          path = Path("plugins") / name / "skills" / name / "SKILL.md"
+          text = path.read_text(encoding="utf-8")
+          assert text.startswith("---\n"), f"{path}: missing YAML frontmatter"
+          assert "\n---\n" in text[4:], f"{path}: unclosed YAML frontmatter"
+          assert "[TODO:" not in text, f"{path}: unfinished placeholder"
+      PY
