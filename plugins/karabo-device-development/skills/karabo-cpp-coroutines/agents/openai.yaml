@@ -1,0 +1,4 @@
+interface:
+  display_name: "Karabo C++ Coroutines (Draft)"
+  short_description: "Draft Cobalt guidance for Karabo C++ development"
+  default_prompt: "Use $karabo-cpp-coroutines to develop or convert this Karabo C++ coroutine workflow, distinguishing branch examples from unresolved conventions."

@@ -7,7 +7,9 @@ This repository is the shared source for Karabo plugins used by Codex CLI, devel
 - `karabo-device-development`: API-specific implementation, review, debugging,
   and testing guidance for C++, bound-Python, and middlelayer Karabo devices,
   including targeted pytest work, regression tests, failure diagnosis, and
-  behavior-driven coverage improvement.
+  behavior-driven coverage improvement. Also bundles `karabo-cpp-coroutines`,
+  a draft skill for new and converted C++ coroutine workflows, with branch
+  material and explicit TODO decisions.
 
 ## Install from GitLab
 
@@ -63,13 +65,18 @@ repository gains GitHub Actions workflows, the token also needs workflow write a
 plugins/
 └── karabo-device-development/
     ├── .codex-plugin/plugin.json
-    └── skills/karabo-device-development/
-        ├── SKILL.md
-        ├── agents/openai.yaml
-        ├── references/
-        └── scripts/
-            ├── analyze_coverage.py
-            └── compare_coverage.py
+    └── skills/
+        ├── karabo-cpp-coroutines/
+        │   ├── SKILL.md
+        │   ├── agents/openai.yaml
+        │   └── references/
+        └── karabo-device-development/
+            ├── SKILL.md
+            ├── agents/openai.yaml
+            ├── references/
+            └── scripts/
+                ├── analyze_coverage.py
+                └── compare_coverage.py
 ```
 
 ## Releasing updates
