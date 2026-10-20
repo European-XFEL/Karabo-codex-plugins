@@ -1,0 +1,26 @@
+{
+  "name": "agents-md-authoring",
+  "version": "0.1.0",
+  "description": "Create concise, evidence-backed AGENTS.md guidance for Karabo repositories.",
+  "author": {
+    "name": "CONTROLS Group"
+  },
+  "keywords": [
+    "agents-md",
+    "karabo",
+    "repository-guidance",
+    "developer-instructions"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "AGENTS.md Authoring",
+    "shortDescription": "Create evidence-backed Karabo repository guidance.",
+    "longDescription": "Inspects a Karabo repository and creates concise, actionable AGENTS.md files grounded in its committed code, tests, CI, build configuration, and documentation.",
+    "developerName": "CONTROLS Group",
+    "category": "Productivity",
+    "capabilities": [
+      "Write"
+    ],
+    "defaultPrompt": "Inspect this Karabo repository and create or update its AGENTS.md files."
+  }
+}
