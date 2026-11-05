@@ -1,0 +1,27 @@
+{
+  "name": "karabo-release-notes",
+  "version": "0.1.0",
+  "description": "Generate concise, schema-aware changelogs for Python repositories containing Karabo middlelayer devices.",
+  "author": {
+    "name": "CONTROLS Group"
+  },
+  "keywords": [
+    "karabo-middlelayer",
+    "middlelayer-devices",
+    "device-changelog",
+    "release-notes",
+    "gitlab-ci"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Karabo Middlelayer Release Notes",
+    "shortDescription": "Create changelogs for Karabo middlelayer devices.",
+    "longDescription": "Analyze Karabo middlelayer properties, slots, schemas and behavior across releases; prepare local MkDocs changelog edits or CI previews.",
+    "developerName": "CONTROLS Group",
+    "category": "Productivity",
+    "capabilities": [
+      "Write"
+    ],
+    "defaultPrompt": "Use $karabo-device-release-notes to generate a changelog for this Karabo middlelayer device repository."
+  }
+}

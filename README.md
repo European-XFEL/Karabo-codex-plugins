@@ -13,6 +13,11 @@ This repository is the shared source for Karabo plugins used by Codex CLI, devel
   concise `AGENTS.md` instructions for Karabo projects. Requires the
   `karabo-device-development` plugin.
 
+- `karabo-release-notes`: changelog generation for Karabo middlelayer devices
+  through the `karabo-device-release-notes` skill, with local edits, MkDocs support
+  and CI previews. Requires the separate `karabo-release-notes` Python package; see its
+  [setup guide](plugins/karabo-release-notes/skills/karabo-device-release-notes/references/setup.md).
+
 ## Install from GitLab
 
 Register this marketplace once:
@@ -24,12 +29,12 @@ codex plugin marketplace add \
 ```
 
 Use `main` for the latest unreleased content, or replace it with a repository
-release tag to stay on a stable marketplace snapshot. Install either or both
-plugins:
+release tag to stay on a stable marketplace snapshot. Install the plugins you need:
 
 ```bash
 codex plugin add karabo-device-development@karabo
 codex plugin add agents-md-authoring@karabo
+codex plugin add karabo-release-notes@karabo
 ```
 
 The `agents-md-authoring` workflow requires `karabo-device-development`, so
@@ -77,6 +82,13 @@ plugins/
 │       ├── SKILL.md
 │       ├── agents/openai.yaml
 │       └── assets/
+├── karabo-release-notes/
+│   ├── .codex-plugin/plugin.json
+│   └── skills/karabo-device-release-notes/
+│       ├── SKILL.md
+│       ├── agents/openai.yaml
+│       ├── references/
+│       └── scripts/release_notes.py
 └── karabo-device-development/
     ├── .codex-plugin/plugin.json
     └── skills/karabo-device-development/
@@ -119,6 +131,19 @@ Use semantic versioning for plugin manifests:
 3. Run the repository validation pipeline.
 4. Create a matching Git tag, for example `v0.2.0`.
 5. Update consuming CI projects to the new tag after review.
+
+## Release-notes development
+
+Install the Python dependency following the plugin's
+[setup guide](plugins/karabo-release-notes/skills/karabo-device-release-notes/references/setup.md),
+then run the helper's Git integration tests:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Marketplace CI checks the manifest, skill files and helper syntax without installing
+the private Python package. Run the integration tests locally when changing the helper.
 
 ## License
 

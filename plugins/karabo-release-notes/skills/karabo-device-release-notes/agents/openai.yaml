@@ -1,0 +1,4 @@
+interface:
+  display_name: "Karabo Middlelayer Release Notes"
+  short_description: "Create changelogs for Karabo middlelayer devices"
+  default_prompt: "Use $karabo-device-release-notes to generate a changelog for this Karabo middlelayer device repository."

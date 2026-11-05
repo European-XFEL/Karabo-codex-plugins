@@ -7,6 +7,17 @@ validate-plugin:
   image: python:3.12-alpine
   script:
     - python -m json.tool .agents/plugins/marketplace.json
+    - python -m json.tool plugins/karabo-release-notes/.codex-plugin/plugin.json
+    - python -m py_compile plugins/karabo-release-notes/skills/karabo-device-release-notes/scripts/release_notes.py
+    - python plugins/karabo-release-notes/skills/karabo-device-release-notes/scripts/release_notes.py --help
+    - >-
+      python -c "from pathlib import Path;
+      p = Path('plugins/karabo-release-notes/skills/karabo-device-release-notes');
+      text = (p / 'SKILL.md').read_text();
+      assert text.startswith('---\n');
+      assert '[TODO:' not in text;
+      assert all((p / 'references' / name).is_file() for name in
+      ['setup.md', 'summary-format.md', 'karabo-changes.md'])"
     - python -m json.tool plugins/karabo-device-development/.codex-plugin/plugin.json
     - >-
       python -m py_compile
